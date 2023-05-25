@@ -1,0 +1,11 @@
+npm install nodemon --save-dev
+npx nodemon nomeDoArquivo.js
+
+"scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js"
+  },
+
+depois de fazer isso, só colocar 
+
+npm start
