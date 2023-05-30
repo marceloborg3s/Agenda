@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const validator = require('validator');
+const { ConcatenationScope } = require('webpack');
 
 const ContatoSchema = new mongoose.Schema({
   nome: { type: String, required: true },
@@ -19,8 +20,8 @@ function Contato (body) {
 
 Contato.buscaPorID = async function(id) {
   if(typeof id !== 'string') return;
-  const user = await ContatoModel.findById(id);
-  return user;
+  const contato = await ContatoModel.findById(id);
+  return contato;
 };
 
 // Sempre que criamos uma função assincrona ela retorna uma promessa
@@ -56,6 +57,13 @@ Contato.prototype.cleanUp = function() {
     email: this.body.email,
     telefone: this.body.telefone
   };
+}
+
+Contato.prototype.edit = async function(id){
+  if(typeof id!== 'string') return;
+  this.valida();
+  if(this.errors.length > 0) return;
+  this.contato = await ContatoModel.findByIdAndUpdate(id, this.body, { new: true });
 }
 
 module.exports = Contato;
