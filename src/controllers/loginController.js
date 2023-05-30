@@ -50,7 +50,7 @@ exports.login = async (req, res) => {
     req.session.user = login.user;
 
     await req.session.save();
-    return res.redirect('/login/');
+    return res.redirect('/');
 
   } catch(e) {
     console.log(e);
